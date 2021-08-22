@@ -16,5 +16,10 @@ const create = (car) => {
   return getById(id)
 }
 
+const getByVin = (vin) => {
+  return db('cars')
+  .where({ vin })
+  .first()
+}
 
-module.exports = { getAll, getById, create }
+module.exports = { getAll, getById, create, getByVin }
