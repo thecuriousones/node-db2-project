@@ -21,33 +21,18 @@ const checkCarId = (req, res, next) => {
 }
 
 const checkCarPayload = (req, res, next) => {
-  if (!req.body.vin) {
-    res.status(400).json({message: "missing required vin field"})
-  } else {
-    next()
-  }
-  if (!req.body.make) {
-    res.status(400).json({message: "missing required make field"})
-  } else {
-    next()
-  }
-  if (!req.body.model) {
-    res.status(400).json({message: "missing required model field"})
-  } else {
-    next()
-  }
-  if (!req.body.mileage) {
-    res.status(400).json({message: "missing required mileage field"})
+  if (!req.body.vin || !req.body.make || !req.body.model || !req.body.mileage ) {
+    res.status(400).json({message: "missing required fields"})
   } else {
     next()
   }
 }
 
 const checkVinNumberValid = (req, res, next) => {
-  if (vin.validate(req.body.vin)) {
-    next()
-  } else {
+  if (!vin.validate(req.body.vin)) {
     res.status(400).json({message: `vin ${req.body.vin} is invalid`})
+  } else {
+    next()
   }
 }
 
